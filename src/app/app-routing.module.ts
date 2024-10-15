@@ -10,6 +10,14 @@ const routes: Routes = [
     path: 'product-detail-page',
     loadChildren: () => import('./product-detail-page/product-detail-page.module').then( m => m.ProductDetailPagePageModule)
   },
+  {
+    path: 'cart',
+    loadChildren: () => import('./cart/cart.module').then( m => m.CartPageModule)
+  },
+  {
+    path: 'user-profile',
+    loadChildren: () => import('./user-profile/user-profile.module').then( m => m.UserProfilePageModule)
+  },
 ];
 @NgModule({
   imports: [
