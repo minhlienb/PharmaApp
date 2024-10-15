@@ -4,33 +4,29 @@
       Home
     </ion-title>
   </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar></ion-searchbar>
+    <ion-button slot="end" fill="clear">
+      <ion-icon name="mic-outline"></ion-icon>
+    </ion-button>
+    <ion-button slot="end" fill="clear">
+      <ion-icon name="qr-code-outline"></ion-icon>
+    </ion-button>
+    <ion-button slot="end" fill="clear">
+      <ion-icon name="notifications-outline"></ion-icon>
+    </ion-button>
+    <ion-button slot="end" fill="clear">
+      <ion-icon name="cart-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+  <br>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Home</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Toolbar</ion-title>
-    </ion-toolbar>
-    <ion-toolbar>
-      <ion-searchbar></ion-searchbar>
-    </ion-toolbar>
-    <ion-toolbar>
-      <h1>icon-qr</h1>
-    </ion-toolbar>
-  </ion-header>
-
-
-  
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Danh mục</ion-title>
     </ion-toolbar>
   </ion-header>
   
@@ -43,16 +39,17 @@
         <div class="label">{{ category.label }}</div>
       </div>
     </div>
+
+    <div class="card-container">
+      <p style="position: absolute; z-index: -2; left: 30px;">Hỏng có gì hết ¯\_(ツ)_/¯ </p>
+      <app-product-card class="small-card"
+      *ngFor="let product of products"
+        [title]="product.title"
+        [imageUrl]="product.imageUrl"
+        [description]="product.description">
+      </app-product-card>
+    </div>
+
   </ion-content>
 </ion-content>
 
-<div class="card-container">
-  <p style="position: absolute; z-index: -2; left: 30px;">Hỏng có gì hết ¯\_(ツ)_/¯ </p>
-
-  <app-product-card class="small-card"
-  *ngFor="let product of products"
-    [title]="product.title"
-    [imageUrl]="product.imageUrl"
-    [description]="product.description">
-  </app-product-card>
-</div>

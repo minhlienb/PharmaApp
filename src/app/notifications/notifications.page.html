@@ -10,10 +10,9 @@
       <ion-title size="large">Thông báo</ion-title>
     </ion-toolbar>
   </ion-header>
+  <app-notification 
+    *ngFor="let notification of notifications" 
+    [title]="notification.title"
+    [content]="notification.content">
+  </app-notification>
 </ion-content>
-
-<app-notification 
-*ngFor="let notification of notifications"
-[title]="notification.title"
-[content]="notification.content">
-</app-notification>
