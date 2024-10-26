@@ -6,7 +6,7 @@ import { ProductsPage } from './products.page';
 const routes: Routes = [
   {
     path: '',
-    component: ProductsPage
+    component: ProductsPage,
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ProductsPageRoutingModule {}
+export class ProductsPageRoutingModule { }

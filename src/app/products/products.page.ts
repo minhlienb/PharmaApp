@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Database, ref, get } from '@angular/fire/database';
+import { ProductServiceService } from '../services/Product/product.service.service';
 @Component({
   selector: 'app-products',
   templateUrl: './products.page.html',
@@ -54,9 +55,13 @@ export class ProductsPage implements OnInit {
       description: 'This is a cloth mask.'
     }
   ];
-  constructor() { }
+  constructor(private productService: ProductServiceService) { }
 
-  ngOnInit() {
+
+
+  async ngOnInit() {
+    this.products = await this.productService.getList();
+    console.log(this.products);
   }
 
 }

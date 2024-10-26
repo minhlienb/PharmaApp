@@ -28,7 +28,7 @@ export class ProductCardComponent implements OnInit {
   }
 
   async sayLovelyWord() {
-    console.log("Fuck You 🖕");
+    console.log("Hello 🖕");
   }
 
   async AddToCart() {

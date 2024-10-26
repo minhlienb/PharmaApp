@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit Infomation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Name</ion-label>
+    <ion-input [(ngModel)]="userData.fullName" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Email</ion-label>
+    <ion-input [(ngModel)]="userData.email" type="email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Password</ion-label>
+    <ion-input [(ngModel)]="userData.password" type="password"><ion-input-password-toggle
+        slot="end"></ion-input-password-toggle></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Telephone</ion-label>
+    <ion-input [(ngModel)]="userData.telephone" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Address</ion-label>
+    <ion-input [(ngModel)]="userData.address" type="text"></ion-input>
+  </ion-item>
+  <ion-button expand="full" [disabled]="true">
+    <ion-icon fill="full" slot="start" name="save-outline"></ion-icon>
+    Save
+  </ion-button>
+</ion-content>

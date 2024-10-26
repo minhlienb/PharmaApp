@@ -1,0 +1,67 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Chi Tiết sản phẩm</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Chi Tiết sản phẩm</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <img src="assets/khauTrangN95.jpg" alt="">
+  <ion-card>
+    <!-- Hình Ảnh Sản Phẩm -->
+    <!-- Phần Giá -->
+    <ion-card-content>
+      <div class="price-section">
+        <p class="original-price"><s>$9.99</s> - <span class="current-price">₫25.00</span></p>
+        <p class="description">Mô tả</p>
+      </div>
+
+      <!-- Chọn Số Lượng -->
+      <ion-item>
+        <ion-label>Số lượng</ion-label>
+        <ion-buttons slot="end">
+          <ion-button>−</ion-button>
+          <ion-label>12</ion-label>
+          <ion-button>+</ion-button>
+        </ion-buttons>
+      </ion-item>
+
+      <!-- Nút Thêm Vào Giỏ Hàng -->
+      <ion-button expand="full" color="primary">Mua</ion-button>
+
+      <!-- Kích Thước Gói -->
+      <ion-list>
+        <ion-item>
+          <ion-label>Kích thước gói</ion-label>
+          <ion-select>
+            <ion-select-option value="500">Rs.106 (500 pellets)</ion-select-option>
+            <ion-select-option value="110">Rs.166 (110 pellets)</ion-select-option>
+            <ion-select-option value="300">Rs.252 (300 pellets)</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+      <!-- Chi Tiết Sản Phẩm -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Chi tiết sản phẩm</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi ut nisi odio. Nulla facilisi. Nunc
+            risus massa, gravida id egestas a, pretium vel tellus.</p>
+          <p><strong>Ngày hết hạn:</strong> 25/12/2023</p>
+          <p><strong>Tên thương hiệu:</strong> Something</p>
+        </ion-card-content>
+      </ion-card>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>

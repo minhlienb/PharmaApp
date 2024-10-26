@@ -1,18 +1,22 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Home
-    </ion-title>
+  </ion-toolbar>
+
+
+  <ion-toolbar>
+    <ion-searchbar></ion-searchbar>
+    <ion-button slot="end" fill="clear">
+      <ion-icon name="notifications-outline"></ion-icon>
+    </ion-button>
+    <ion-button slot="end" fill="clear">
+      <ion-icon name="cart-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Home</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
+<<<<<<< HEAD
 
   <ion-header>
     <ion-toolbar>
@@ -34,6 +38,8 @@
     </ion-toolbar>
   </ion-header>
   
+=======
+>>>>>>> feature
   <ion-content>
     <div class="category-container">
       <div class="category-card" *ngFor="let category of categories">
@@ -43,10 +49,21 @@
         <div class="label">{{ category.label }}</div>
       </div>
     </div>
+
+    <div class="card-container">
+      <app-product-card class="small-card" *ngFor="let product of products" [title]="product.title"
+        [imageUrl]="product.imageUrl" [description]="product.description">
+      </app-product-card>
+    </div>
+
   </ion-content>
+<<<<<<< HEAD
 </ion-content>
 
 
 
 
 sdfds
+=======
+</ion-content>
+>>>>>>> feature

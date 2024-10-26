@@ -55,3 +55,16 @@
     font-weight: bold;
   }
   
+
+//  Products list
+
+  .small-card {
+    width: 50%;
+    height: auto;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
