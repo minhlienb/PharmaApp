@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { DataService } from '../services/data.service';
+=======
+import { Database, ref, get } from '@angular/fire/database';
+import { ProductServiceService } from '../services/Product/product.service.service';
+>>>>>>> main
 @Component({
   selector: 'app-products',
   templateUrl: './products.page.html',
@@ -13,7 +18,7 @@ export class ProductsPage implements OnInit {
   constructor(
     private dataService: DataService
   ) {
-    
+
   }
 
   ngOnInit() {
