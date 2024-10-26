@@ -13,6 +13,7 @@
 
   <app-product-card class="small-card"
   *ngFor="let product of products"
+    [productId]="product.key"
     [title]="product.title"
     [imageUrl]="product.imageUrl"
     [description]="product.description">
