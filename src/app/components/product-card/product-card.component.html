@@ -1,11 +1,10 @@
-<ion-card>
+<ion-card href="/tabs/products/detail">
+  <img [src]="imageUrl" [alt]="title" />
   <ion-card-header>
-    <ion-card-title>{{ title }}</ion-card-title>
+    <ion-card-title style="font-size: 20px;">{{ title }}</ion-card-title>
   </ion-card-header>
-  <ion-card-content>
-    <p>{{ description }}</p>
-    <img [src]="imageUrl" [alt]="title" />
-  </ion-card-content>
+  <ion-button (click)="AddToCart()" fill="clear">Mua liền</ion-button>
+  <ion-button>
+    <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+  </ion-button>
 </ion-card>
-
-<ion-button (click)="AddToCart()">Mua liền</ion-button>

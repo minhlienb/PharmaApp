@@ -1,0 +1,41 @@
+html,
+body {
+    overflow: scroll;
+    /* Cho phép cuộn nhưng ẩn thanh cuộn */
+    -ms-overflow-style: none;
+    /* IE và Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+html::-webkit-scrollbar,
+.element::-webkit-scrollbar {
+    display: none;
+    /* Ẩn trên Chrome, Safari và các trình duyệt WebKit */
+}
+
+
+.register {
+    .text {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        ion-button.btn_register {
+            left: 0 !important;
+        }
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: center;
+
+    ion-input,
+    ion-button {
+        padding: 5px;
+    }
+}
