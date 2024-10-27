@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 
 import { AngularFireModule } from '@angular/fire/compat'; 
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database'; 
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { environment } from '../environments/environment';
 
 @NgModule({
@@ -16,8 +17,9 @@ import { environment } from '../environments/environment';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig), // Khởi tạo Firebase
-    AngularFireDatabaseModule // Import module cho database
+    AngularFireModule.initializeApp(environment.firebaseConfig), 
+    AngularFireDatabaseModule,
+    AngularFireMessagingModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

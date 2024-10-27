@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-product-card',
@@ -25,7 +26,8 @@ export class ProductCardComponent implements OnInit {
   constructor(
     private alertController: AlertController,
     private db: AngularFireDatabase,
-    private router: Router
+    private router: Router,
+    private notificationService:NotificationService
 
   ) { }
 
@@ -42,7 +44,6 @@ export class ProductCardComponent implements OnInit {
   }
 
   async navigateToDetailPage() {
-    // Điều hướng đến trang chi tiết sản phẩm kèm theo productId
     this.router.navigate(['/product-detail-page', this.productId]);
   }
 
@@ -58,7 +59,7 @@ export class ProductCardComponent implements OnInit {
       price: this.price,
       quantity: 1
     };
-    if (!this.title || !this.type || !this.price || !this.price) {
+    if (!this.title || !this.price||!this.type) {
       this.presentAlerts('Vui lòng điền đầy đủ thông tin sản phẩm.');
       return;
     }
@@ -71,11 +72,14 @@ export class ProductCardComponent implements OnInit {
           const updateQuantity = item.quantity + 1;
           await productRef.update({ quantity: updateQuantity });
           this.presentAlerts("Sản phẩm đã được cập nhật trong giỏ hàng");
+
+          this.notificationService.addNotification('Cập nhật giỏ hàng', `Sản phẩm ${this.title} đã được cập nhật trong giỏ hàng.`);
           return;
         }
         else {
           await productRef.set(productData);
           this.presentAlerts('Đã thêm vào giỏ hàng!');
+          this.notificationService.addNotification('Thêm vào giỏ hàng', `Sản phẩm ${this.title} đã được thêm vào giỏ hàng!`);
           return;
         }
       });
