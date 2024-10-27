@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'order-confirmation',
     loadChildren: () => import('./order-confirmation/order-confirmation.module').then( m => m.OrderConfirmationPageModule)
   },
+  {
+    path: 'address-selector',
+    loadChildren: () => import('./address-selector/address-selector.module').then( m => m.AddressSelectorPageModule)
+  },
 ];
 @NgModule({
   imports: [
