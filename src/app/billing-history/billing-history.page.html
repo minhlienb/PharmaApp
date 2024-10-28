@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Lịch Sử Đơn Hàng</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let order of billingHistory">
+      <ion-label>
+        <h2>Hóa Đơn: {{ order.hoaDon }}</h2>
+        <p>Thành Tiền: {{ order.thanhTien }}</p>
+        <p>Ngày Mua: {{ order.ngayMua }}</p>
+        <p>Đánh Giá: <ion-icon name="star" *ngFor="let star of [].constructor(order.danhGia)"></ion-icon></p>
+      </ion-label>
+      <ion-button expand="block" fill="outline" color="primary" (click)="rateOrder(order.id)">
+        Đánh Giá
+      </ion-button>
+      <ion-button expand="block" fill="outline" color="secondary" (click)="reorder(order.id)">
+        Mua Lại Đơn Hàng
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -26,6 +26,14 @@ const routes: Routes = [
     path: 'address-selector',
     loadChildren: () => import('./address-selector/address-selector.module').then( m => m.AddressSelectorPageModule)
   },
+  {
+    path: 'billing-history',
+    loadChildren: () => import('./billing-history/billing-history.module').then( m => m.BillingHistoryPageModule)
+  },
+  {
+    path: 'invoice-detail',
+    loadChildren: () => import('./invoice-detail/invoice-detail.module').then( m => m.InvoiceDetailPageModule)
+  },
 ];
 @NgModule({
   imports: [
