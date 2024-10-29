@@ -11,7 +11,7 @@ export class LoginPage {
   email: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService, private router: Router, private toastController: ToastController) { }
+  constructor(private authService: AuthService) { }
   async onLogin() {
     return await this.authService.login(this.email, this.password)
   }
