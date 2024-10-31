@@ -52,9 +52,9 @@ export class HomePage implements OnInit {
     }
   }
   navigateToNotification(){
-    this.router.navigate(['/notifications']);
+    this.router.navigate(['tabs/notifications']);
   }
   navigateToCart(){
-    this.router.navigate(['/cart']);
+    this.router.navigate(['tabs/cart']);
   }
 }

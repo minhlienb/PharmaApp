@@ -14,17 +14,9 @@
       <ion-item>
         <ion-icon name="location-outline" slot="start"></ion-icon>
         <ion-label (click)="openAddressSelector()">
-          <h2>Địa chỉ nhận hàng</h2>
-          <p>95 Lý Nam Đế P8 TP Đà Lạt</p>
-          <p>Nick : 0969696969</p>
-        </ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="time-outline" slot="start"></ion-icon>
-        <ion-label>
-          <h2>Dịch vụ vận chuyển</h2>
-          <p>Tiki Now</p>
-          <p>2h - 3h</p>
+          <h2>{{ selectedAddress?.title || 'Chưa có địa chỉ' }}</h2>
+          <p>{{ selectedAddress?.content || 'Nội dung địa chỉ' }}</p>
+          <p>Số điện thoại: {{ telephone }}</p>
         </ion-label>
       </ion-item>
     </ion-card-content>
@@ -36,37 +28,27 @@
       <ion-label>Chi tiết đơn hàng</ion-label>
     </ion-card-header>
     <ion-card-content>
+      <ion-list>
+        <ng-container *ngFor="let product of selectedProducts; let i = index">
+          <ion-item>
+            <ion-label>
+              <h2>{{ product.name }}</h2>
+              <p>{{ product.category }}</p>
+              <p>₫{{ product.price | number: '1.2-2' }}</p>
+            </ion-label>
+            <ion-buttons slot="end">
+              <ion-button (click)="decreaseQuantity(i)">−</ion-button>
+              <ion-label>{{ product.quantity }}</ion-label>
+              <ion-button (click)="increaseQuantity(i)">+</ion-button>
+            </ion-buttons>
+          </ion-item>
+        </ng-container>
+      </ion-list>
+
+      <!-- Tổng cộng -->
       <ion-item>
-        <ion-thumbnail slot="start">
-          <img src="path/to/image.png" />
-        </ion-thumbnail>
-        <ion-label>
-          <h2>Tên sản phẩm</h2>
-          <p>đ 000</p>
-        </ion-label>
-        <ion-buttons slot="end">
-          <ion-button>-</ion-button>
-          <ion-input type="number" value="0" readonly></ion-input>
-          <ion-button>+</ion-button>
-        </ion-buttons>
-      </ion-item>
-      
-      <!-- Thông tin giá -->
-      <ion-item>
-        <ion-label>Giá</ion-label>
-        <ion-note slot="end">00.000 đ</ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-label>Phí vận chuyển</ion-label>
-        <ion-note slot="end">00.000 đ</ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-label>Khuyến mãi</ion-label>
-        <ion-note color="success" slot="end">-00.000 đ</ion-note>
-      </ion-item>
-      <ion-item>
-        <ion-label><strong>Tổng cộng</strong></ion-label>
-        <ion-note slot="end"><strong>00.000 đ</strong></ion-note>
+        <ion-label>Tổng cộng</ion-label>
+        <ion-label slot="end">₫{{ getTotalPrice() | number: '1.2-2' }}</ion-label>
       </ion-item>
     </ion-card-content>
   </ion-card>
@@ -88,4 +70,5 @@
       </ion-item>
     </ion-card-content>
   </ion-card>
+  <ion-button expand="full" color="primary" (click)="confirmOrder()">Mua Hàng</ion-button>
 </ion-content>

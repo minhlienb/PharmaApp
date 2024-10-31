@@ -54,6 +54,17 @@ export class DataService {
       )
     );
   }
+  getUserInfo(deviceId: string): Observable<any> {
+    return this.db.object(`users/${deviceId}`).valueChanges().pipe(
+      map((data: any) => ({
+        addresses: data.address ? Object.keys(data.address).map(key => ({
+          key: key,
+          ...data.address[key]
+        })) : [],
+        telephone: data.telephone || ''
+      }))
+    );
+  }
 
   updateNotificationStatus(deviceId:string,notificationId:string,status:boolean){
     this.db.object(`/notifications/${deviceId}/${notificationId}`).update({status:status});

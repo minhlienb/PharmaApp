@@ -18,6 +18,10 @@ const routes: Routes = [
         loadChildren: () => import('../../notifications/notifications.module').then(m => m.NotificationsPageModule)
       },
       {
+        path:'cart',
+        loadChildren:()=>import('../../cart/cart.module').then(m=>m.CartPageModule)
+      },
+      {
         path: 'profile',
         children: [
           {

@@ -23,13 +23,11 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () => import('./Page/Register/register/register.module').then(m => m.RegisterPageModule)
   },
+
   {
     path: 'tabs',
     loadChildren: () => import('./Page/tab-bar/tab-bar.module').then(m => m.TabBarPageModule),
-    // ...canActivate(redirectUnauthorizedToLogin)
-    // canActivate: [AuthGuard]
   },
-
   {
     path: 'order-confirmation',
     loadChildren: () => import('./order-confirmation/order-confirmation.module').then( m => m.OrderConfirmationPageModule)

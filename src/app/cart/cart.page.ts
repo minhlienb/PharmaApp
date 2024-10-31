@@ -15,9 +15,9 @@ export class CartPage implements OnInit {
   discount = 0; // Giả sử không có giảm giá
 
   constructor(
-    private db:AngularFireDatabase,
-    private alertController:AlertController,
-    private router:Router
+    private db: AngularFireDatabase,
+    private alertController: AlertController,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -28,14 +28,14 @@ export class CartPage implements OnInit {
     if (deviceId) {
       this.db.list(`cart/${deviceId}`).snapshotChanges().subscribe((data: any[]) => {
         this.products = data.map((item: any) => ({
-          productId: item.key, 
-          ...item.payload.val(), 
+          productId: item.key,
+          ...item.payload.val(),
           selected: false
         }));
       });
     }
   }
-  
+
   async presentAlerts(message: string) {
     const alert = await this.alertController.create({
       header: 'Thông báo',
@@ -62,30 +62,33 @@ export class CartPage implements OnInit {
       return total + (product.price * product.quantity);
     }, 0);
   }
-    Pay(){
-      const deviceId=localStorage.getItem('deviceId');
-      if(deviceId){
-        const selectedProducts=this.products.filter(item=>item.selected);
-        if(selectedProducts.length>0){
-          const orderId=uuidv4();
-          const createdAt=new Date().toISOString();
-          const totalAmount=this.getTotalPrice();
-          const orderData={
-            orderId:orderId,
-            deviceId:deviceId,
-            createdAt:createdAt,
-            status:"Chờ xác thực",
-            totalAmount:totalAmount
-          }
-        }
+  Pay() {
+    const deviceId = localStorage.getItem('deviceId');
+    if (deviceId) {
+      const selectedProducts = this.products.filter(item => item.selected);
+      if (selectedProducts.length > 0) {
+        const orderId = uuidv4();
+        const createdAt = new Date().toISOString();
+        const totalAmount = this.getTotalPrice();
+        const orderData = {
+          orderId: orderId,
+          deviceId: deviceId,
+          createdAt: createdAt,
+          status: "Chờ xác thực",
+          totalAmount: totalAmount,
+          selectedProducts: selectedProducts
+        };
+        console.log('orderData',orderData);
+        this.router.navigate(['/order-confirmation'], { state: orderData });
       }
+    }
   }
-  removeSelectItem(){
-    const deviceId=localStorage.getItem('deviceId');
-    if(deviceId){
-      const selectedProducts=this.products.filter(item=>item.selected);
-      selectedProducts.forEach(item=>{
-        this.db.list(`cart/${deviceId}`).remove(item.productId).then(()=>{
+  removeSelectItem() {
+    const deviceId = localStorage.getItem('deviceId');
+    if (deviceId) {
+      const selectedProducts = this.products.filter(item => item.selected);
+      selectedProducts.forEach(item => {
+        this.db.list(`cart/${deviceId}`).remove(item.productId).then(() => {
           console.log(`Đã xóa sản phẩm: ${item.name}`);
         }).catch(error => {
           console.error(`Không thể xóa sản phẩm: ${error}`);
@@ -95,10 +98,10 @@ export class CartPage implements OnInit {
       this.loadCartData();
     }
   }
-  hasSelectedProduct():boolean{
-    return this.products.some(item=>item.selected);
+  hasSelectedProduct(): boolean {
+    return this.products.some(item => item.selected);
   }
-  navigateToProducts(){
+  navigateToProducts() {
     this.router.navigate(['/products']);
   }
 }
