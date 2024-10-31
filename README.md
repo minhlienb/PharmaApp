@@ -3,3 +3,4 @@
 
     - 2116976 Bùi Minh Liên (UI Developer)
     - ...
+nếu npm install gặp lỗi thì sài npm install --legacy-peer-deps

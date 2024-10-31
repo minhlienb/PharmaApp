@@ -1,0 +1,56 @@
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-item lines="none">
+        <ion-title>Chọn Địa Chỉ và Dịch Vụ Vận Chuyển</ion-title>
+      </ion-item>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- Phần chọn địa chỉ giao hàng -->
+      <ion-label class="section-title">Delivery Address</ion-label>
+      <ion-radio-group [(ngModel)]="selectedAddress">
+        <ion-item value="home" (click)="selectAddress('home')" lines="none">
+          <ion-radio slot="start"></ion-radio>
+          <ion-label>
+            <h2>Home</h2>
+            <p>(205) 555-024</p>
+            <p>95 Lý Nam Đế P8 TP Đà Lạt</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item value="office" (click)="selectAddress('office')" lines="none">
+          <ion-radio slot="start"></ion-radio>
+          <ion-label>
+            <h2>Office</h2>
+            <p>(205) 555-024</p>
+            <p>77 Nguyen Du</p>
+          </ion-label>
+        </ion-item>
+      </ion-radio-group>
+
+      <ion-item lines="none" button>
+        <ion-label color="primary"><a href="#">+ Add Address</a></ion-label>
+      </ion-item>
+
+      <!-- Phần chọn dịch vụ giao hàng -->
+      <ion-label class="section-title">Delivery Service</ion-label>
+      <ion-radio-group [(ngModel)]="selectedDeliveryService">
+        <ion-item value="tiki-now" (click)="selectDeliveryService('tiki-now')" lines="none">
+          <ion-radio slot="start"></ion-radio>
+          <ion-label>Tiki Now (2h - 3h)</ion-label>
+        </ion-item>
+
+        <ion-item value="standard" (click)="selectDeliveryService('standard')" lines="none">
+          <ion-radio slot="start"></ion-radio>
+          <ion-label>Standard Delivery (3 - 5 ngày)</ion-label>
+        </ion-item>
+
+        <ion-item value="express" (click)="selectDeliveryService('express')" lines="none">
+          <ion-radio slot="start"></ion-radio>
+          <ion-label>Express Delivery (1 - 2 ngày)</ion-label>
+        </ion-item>
+      </ion-radio-group>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

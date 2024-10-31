@@ -17,8 +17,8 @@ export class ProductsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.dataService.getProducts().subscribe((data: any) => {
-      this.products = data;
+    this.dataService.getProducts().subscribe(products=>{
+      this.products=products;
     });
   }
 }

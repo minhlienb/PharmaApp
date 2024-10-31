@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, Input, OnInit } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-notification',
@@ -8,8 +9,21 @@ import { Component, Input, OnInit } from '@angular/core';
 export class NotificationComponent  implements OnInit {
   @Input() title?: string;
   @Input() content?: string;
+  @Input() deviceId?:string;
+  @Input() notificationId?:string;
+  @Input() status?:boolean;
   
-  constructor() { }
+  constructor(
+    private db:DataService
+  ) { }
 
   ngOnInit() {}
+  onNotificationClick(){
+    if(this.status===false){
+      this.status=true;
+    }
+    if(this.deviceId&&this.notificationId){
+      this.db.updateNotificationStatus(this.deviceId,this.notificationId,true);
+    }
+  }
 }

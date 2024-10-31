@@ -1,20 +1,20 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>cart</ion-title>
+    <ion-title>Giỏ hàng</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">cart</ion-title>
+      <ion-title size="large">Giỏ hàng</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-list>
+  <ion-list *ngIf="products.length > 0; else emptyCart">
     <ng-container *ngFor="let product of products; let i = index">
       <ion-item>
-        <ion-checkbox slot="start"></ion-checkbox>
+        <ion-checkbox slot="start" [(ngModel)]="product.selected"></ion-checkbox>
         <ion-label>
           <h2>{{ product.name }}</h2>
           <p>{{ product.category }}</p>
@@ -28,9 +28,12 @@
       </ion-item>
     </ng-container>
   </ion-list>
-  
+
+  <!-- Nút Xóa Sản Phẩm -->
+  <ion-button expand="full" color="danger" *ngIf="hasSelectedProduct()" (click)="removeSelectItem()">Xóa sản phẩm đã chọn</ion-button>
+
   <!-- Thông tin thanh toán -->
-  <div>
+  <div *ngIf="products.length > 0">
     <h3>Thanh toán</h3>
     <ion-item>
       <ion-label>Tổng hóa đơn</ion-label>
@@ -49,8 +52,16 @@
       <ion-label slot="end">₫{{ getTotalPrice() - discount | number: '1.2-2' }}</ion-label>
     </ion-item>
   </div>
-  
+
   <!-- Nút Mua Hàng -->
-  <ion-button expand="full" color="primary">Mua Hàng</ion-button>
-  
+  <ion-button expand="full" color="primary" (click)="Pay()" *ngIf="products.length > 0">Mua Hàng</ion-button>
+
+  <!-- Phần thông báo khi giỏ hàng trống -->
+  <ng-template #emptyCart>
+    <div style="text-align: center; margin: 20px;">
+      <span>Không có sản phẩm nào trong giỏ hàng.</span>
+      <ion-button expand="full" color="secondary" (click)="navigateToProducts()">Xem sản phẩm</ion-button>
+    </div>
+  </ng-template>
+
 </ion-content>

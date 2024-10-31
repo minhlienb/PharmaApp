@@ -10,6 +10,8 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire/compat'; // import AngularFireModule
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database'; // import AngularFireDatabaseModule
+
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { environment } from '../environments/environment';
 
 @NgModule({
@@ -18,8 +20,9 @@ import { environment } from '../environments/environment';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig), // Khởi tạo Firebase
-    AngularFireDatabaseModule // Import module cho database
+    AngularFireModule.initializeApp(environment.firebaseConfig), 
+    AngularFireDatabaseModule,
+    AngularFireMessagingModule
   ],
   providers: [{
     provide: RouteReuseStrategy,

@@ -5,10 +5,19 @@
 </ion-header>
 
 <ion-content>
-  <div class="card-container">
-    <app-product-card class="small-card" *ngFor="let product of products" [title]="product.title"
-      [imageUrl]="product.imageUrl" [description]="product.description">
-    </app-product-card>
-  </div>
+<div class="card-container">
+  <p style="position: absolute; z-index: -2; left: 30px;">Hỏng có gì hết ¯\_(ツ)_/¯ </p>
+
+  <app-product-card class="small-card"
+  *ngFor="let product of products"
+    [productId]="product.key"
+    [title]="product.title"
+    [imageUrl]="product.imageUrl"
+    [description]="product.description"
+    [price]="product.price"
+    [type]="product.type">
+    
+  </app-product-card>
+</div>
 
 </ion-content>

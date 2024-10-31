@@ -1,19 +1,3 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-  </ion-toolbar>
-
-
-  <ion-toolbar>
-    <ion-searchbar></ion-searchbar>
-    <ion-button slot="end" fill="clear">
-      <ion-icon name="notifications-outline"></ion-icon>
-    </ion-button>
-    <ion-button slot="end" fill="clear">
-      <ion-icon name="cart-outline"></ion-icon>
-    </ion-button>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content [fullscreen]="true">
 
 
@@ -39,7 +23,7 @@
 
   <ion-content>
     <div class="category-container">
-      <div class="category-card" *ngFor="let category of categories">
+      <div class="category-card" *ngFor="let category of categories" (click)="loadProductByCate(category.key)">
         <div class="icon">
           <ion-icon [name]="category.icon"></ion-icon>
         </div>
@@ -48,8 +32,15 @@
     </div>
 
     <div class="card-container">
-      <app-product-card class="small-card" *ngFor="let product of products" [title]="product.title"
-        [imageUrl]="product.imageUrl" [description]="product.description">
+      <p style="position: absolute; z-index: -2; left: 30px;">Hỏng có gì hết ¯\_(ツ)_/¯ </p>
+      <app-product-card class="small-card"
+        *ngFor="let product of filteredProducts"
+        [title]="product.title"
+        [imageUrl]="product.imageUrl"
+        [description]="product.description"
+        [productId]="product.key"  
+        [price]="product.price"
+        [type]="product.type">    
       </app-product-card>
     </div>
   </ion-content>

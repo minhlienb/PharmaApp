@@ -13,6 +13,9 @@
   <app-notification 
     *ngFor="let notification of notifications" 
     [title]="notification.title"
-    [content]="notification.content">
+    [content]="notification.content"
+    [deviceId]="deviceId"
+    [notificationId]="notification.notificationId"
+    [status]="notification.status">
   </app-notification>
 </ion-content>

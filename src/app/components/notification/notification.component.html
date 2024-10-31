@@ -1,6 +1,7 @@
 <ion-item class="notification-item" lines="solid">
-  <ion-label>
+  <ion-label (click)="onNotificationClick()">
     <h2 class="notification-title">{{ title }}</h2>
     <p class="notification-content">{{ content }}</p>
   </ion-label>
+  <ion-badge color="danger" *ngIf="status===false" slot="end">*</ion-badge>
 </ion-item>

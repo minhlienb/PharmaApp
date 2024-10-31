@@ -14,7 +14,10 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./Page/Login/login/login.module').then(m => m.LoginPageModule),
-    // ...canActivate(redirectLoggedInToTabs)
+  },
+  {
+    path: 'product-detail-page/:productId', 
+    loadChildren: () => import('./product-detail-page/product-detail-page.module').then(m => m.ProductDetailPagePageModule)
   },
   {
     path: 'register',
@@ -27,6 +30,22 @@ const routes: Routes = [
     // canActivate: [AuthGuard]
   },
 
+  {
+    path: 'order-confirmation',
+    loadChildren: () => import('./order-confirmation/order-confirmation.module').then( m => m.OrderConfirmationPageModule)
+  },
+  {
+    path: 'address-selector',
+    loadChildren: () => import('./address-selector/address-selector.module').then( m => m.AddressSelectorPageModule)
+  },
+  {
+    path: 'billing-history',
+    loadChildren: () => import('./billing-history/billing-history.module').then( m => m.BillingHistoryPageModule)
+  },
+  {
+    path: 'invoice-detail',
+    loadChildren: () => import('./invoice-detail/invoice-detail.module').then( m => m.InvoiceDetailPageModule)
+  },
 ];
 @NgModule({
   imports: [
