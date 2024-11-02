@@ -24,4 +24,13 @@
     overflow: hidden;          /* Ẩn phần vượt quá */
     text-overflow: ellipsis;   /* Thêm dấu “…” ở cuối nếu bị cắt */
   }
+
+  /* CSS */
+.button-container {
+    border: 2px #000 solid;
+    display: flex;           /* Sắp xếp các nút theo hàng ngang */
+    gap: 8px;                /* Khoảng cách giữa các nút */
+    justify-content: space-between; /* Căn đều khoảng cách nếu cần */
+    overflow: hidden;
+  }
   
