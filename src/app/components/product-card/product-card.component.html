@@ -1,10 +1,10 @@
 <ion-card (click)="navigateToDetailPage()">
   <ion-card-header>
-    <ion-card-title>{{ title }}</ion-card-title>
+    <ion-card-title class="card-title">{{ title }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
     
-    <p>{{ description }}</p>
+    <p class="description">{{ description }}</p>
     <img [src]="imageUrl" [alt]="title" />
   </ion-card-content>
 </ion-card>
