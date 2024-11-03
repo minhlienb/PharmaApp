@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-list>
-    <div *ngFor="let order of billingHistory" class="order-container">
+    <div *ngFor="let order of billingHistory" class="order-container" (click)="navigationInvoiceDetail(order.hoaDon)">
       <ion-label>
         <h2>Hóa Đơn: {{ order.hoaDon }}</h2>
         <p>Thành Tiền: {{ order.thanhTien }}</p>
@@ -18,9 +18,9 @@
           <ion-icon name="star" *ngFor="let star of [].constructor(order.danhGia)"></ion-icon>
         </p>
       </ion-label>
-  
+    
       <div class="button-container">
-        <ion-button expand="block" fill="outline" color="primary" (click)="rateOrder(order.hoaDon)">
+        <ion-button *ngIf="order.danhGia === 0" expand="block" fill="outline" color="primary" (click)="rateOrder(order)">
           Đánh Giá
         </ion-button>
         <ion-button expand="block" fill="outline" color="secondary" (click)="reorder(order)">

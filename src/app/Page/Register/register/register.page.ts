@@ -8,18 +8,27 @@ import { AuthService } from 'src/app/services/Auth/auth.service';
 })
 export class RegisterPage implements OnInit {
 
-  fullName: string = ""
-  email: string = ""
-  password: string = ''
-  address: string = ""
-  telephone: string = ""
+  fullName: string = "";
+  email: string = "";
+  password: string = '';
+  telephone: string = "";
+  addressTitle: string = ""; // Biến cho tiêu đề địa chỉ
+  addressContent: string = ""; // Biến cho nội dung địa chỉ
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    // Khởi tạo các giá trị nếu cần
   }
 
   register() {
-    return this.authService.register(this.fullName, this.email, this.password, this.address, this.telephone)
+    // Tạo đối tượng địa chỉ với tiêu đề và nội dung
+    const address = {
+      title: "Mặc định",
+      content: this.addressContent
+    };
+
+    // Gọi hàm register với thông tin địa chỉ
+    return this.authService.register(this.fullName, this.email, this.password, this.telephone, address);
   }
 }

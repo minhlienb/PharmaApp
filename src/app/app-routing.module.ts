@@ -41,7 +41,7 @@ const routes: Routes = [
     loadChildren: () => import('./billing-history/billing-history.module').then( m => m.BillingHistoryPageModule)
   },
   {
-    path: 'invoice-detail',
+    path: 'invoice-detail/:id',
     loadChildren: () => import('./invoice-detail/invoice-detail.module').then( m => m.InvoiceDetailPageModule)
   },
   {

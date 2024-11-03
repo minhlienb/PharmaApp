@@ -56,13 +56,17 @@ export class DataService {
   
   getUserInfo(deviceId: string): Observable<any> {
     return this.db.object(`users/${deviceId}`).valueChanges().pipe(
-      map((data: any) => ({
-        addresses: data.address ? Object.keys(data.address).map(key => ({
+      map((data: any) => {
+        const addresses = data.address ? Object.keys(data.address).map(key => ({
           key: key,
           ...data.address[key]
-        })) : [],
-        telephone: data.telephone || ''
-      }))
+        })) : [];
+  
+        return {
+          addresses: addresses,
+          telephone: data.telephone || ''
+        };
+      })
     );
   }
 
@@ -76,6 +80,7 @@ export class DataService {
             address: orderData.address,
             createAt: orderData.createAt,
             totalAmount:orderData.totalAmount,
+            rating:orderData?.rating,
             products: orderData.products || [],
             telephone: orderData.telephone || '',
             paid:orderData.paid,
@@ -84,6 +89,29 @@ export class DataService {
         })
       )
     );
+  }
+  getOrderDetailByDeviceId(deviceId: string, orderId: string) {
+    // Truy cập vào đường dẫn của đơn hàng cụ thể
+    return this.db.object(`/orders/${deviceId}/${orderId}`).snapshotChanges().pipe(
+      map(c => {
+        const orderData = c.payload.val() as any; // Lấy dữ liệu đơn hàng
+        return {
+          orderId: c.payload.key,
+          address: orderData?.address,
+          createAt: orderData?.createAt,
+          totalAmount: orderData?.totalAmount,
+          rating:orderData?.rating,
+          products: orderData?.products || [],
+          telephone: orderData?.telephone || '',
+          paid: orderData?.paid,
+          status: orderData?.status
+        };
+      })
+    );
+  }
+  submitRating(deviceId: string, orderId: string, rating: number): Promise<void> {
+    const ratingRef = this.db.object(`/orders/${deviceId}/${orderId}`);
+    return ratingRef.update({ rating: rating });
   }
   getNotificationsByDeviceId(deviceId:string):Observable<any[]>{
     return this.db.list(`notifications/${deviceId}`).snapshotChanges().pipe(

@@ -13,22 +13,18 @@
       placeholder="Enter your name"></ion-input>
     <ion-input [(ngModel)]="email" type="email" label="Email" label-placement="floating" fill="outline"
       placeholder="Enter email"></ion-input>
-
     <ion-input [(ngModel)]="password" type="password" fill="outline" label="Password" label-placement="floating"
       placeholder="Enter password" required></ion-input>
-
     <ion-input [(ngModel)]="telephone" label="Telephone" label-placement="floating" fill="outline"
       placeholder="Enter phone number"></ion-input>
-    <ion-input [(ngModel)]="address" type="text" fill="outline" label="Address" label-placement="floating"
+
+    <!-- Chỉ một trường nhập cho địa chỉ -->
+    <ion-input [(ngModel)]="addressContent" type="text" fill="outline" label="Address" label-placement="floating"
       placeholder="Enter your address" required></ion-input>
+
+    <!-- Nút đăng ký -->
     <ion-button (click)="register()" expand="block" fill="outline" shape="round">
       Sign up
     </ion-button>
-    <div class="text">
-      <p>You have an acount</p>
-      <ion-button fill="clear" shape="round" href="/login">
-        Log in?
-      </ion-button>
-    </div>
   </div>
 </ion-content>

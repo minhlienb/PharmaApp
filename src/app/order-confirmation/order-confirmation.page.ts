@@ -86,6 +86,7 @@ export class OrderConfirmationPage implements OnInit {
       totalAmount:this.getTotalPrice(),
       status:'Chờ xử lý',
       paid:false,
+      danhGia:0,
       products: this.selectedProduct.map(product => ({
         product: product.product || product.productId,
         category: product.category,

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
+import { ModalController } from '@ionic/angular';
+import { RatingPopupComponent } from '../components/rating-popup/rating-popup.component';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-billing-history',
@@ -8,22 +11,26 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./billing-history.page.scss'],
 })
 export class BillingHistoryPage implements OnInit {
-  billingHistory: any[] = []; // lưu trữ danh sách đơn hàng từ cơ sở dữ liệu
+  billingHistory: any[] = []; // Lưu trữ danh sách đơn hàng từ cơ sở dữ liệu
+  deviceId: string; // Khai báo deviceId
 
   constructor(
     private router: Router,
-    private db: DataService
-  ) {}
+    private db: DataService,
+    private modalCtrl: ModalController
+  ) {
+    // Lấy UID từ localStorage hoặc tạo mới nếu không có
+    this.deviceId = localStorage.getItem('deviceId') || uuidv4();
+  }
 
   ngOnInit() {
-    const deviceId = localStorage.getItem('deviceId'); // Lấy UID từ localStorage
-    if (deviceId) {
-      this.db.getOrderDetails(deviceId).subscribe((data) => {
+    if (this.deviceId) { // Sử dụng this.deviceId
+      this.db.getOrderDetails(this.deviceId).subscribe((data) => {
         this.billingHistory = data.map(order => ({
           hoaDon: order.orderId,
           thanhTien: order.totalAmount,
-          ngayMua: new Date(order.createAt).toLocaleDateString('vi-VN'), 
-          danhGia: 0,
+          ngayMua: new Date(order.createAt).toLocaleDateString('vi-VN'),
+          danhGia: order.rating||0, // Lấy đánh giá từ cơ sở dữ liệu nếu có
           products: order.products // Lưu lại danh sách sản phẩm
         }));
         console.log('Billing History:', this.billingHistory); // Đảm bảo có dữ liệu
@@ -31,14 +38,8 @@ export class BillingHistoryPage implements OnInit {
     }
   }
 
-  // Đánh giá đơn hàng
-  rateOrder(orderId: number) {
-    console.log('Đánh giá cho đơn hàng ID:', orderId);
-  }
-
   // Mua lại đơn hàng
   reorder(order: any) {
-    // Kiểm tra xem order có chứa sản phẩm không
     if (!order.products || order.products.length === 0) {
       console.error('Không có sản phẩm trong đơn hàng:', order);
       return; // Dừng lại nếu không có sản phẩm
@@ -59,8 +60,31 @@ export class BillingHistoryPage implements OnInit {
     });
   }
 
+  async rateOrder(order: any) {
+    const modal = await this.modalCtrl.create({
+      component: RatingPopupComponent,
+      componentProps: { orderId: { hoaDon: order.hoaDon }, deviceId: this.deviceId }, // Truyền đúng kiểu
+    });
+
+    modal.onDidDismiss().then((result) => {
+      if (result.data) {
+        console.log('User Rating:', result.data.rating);
+        const orderItem = this.billingHistory.find(o => o.hoaDon === order.hoaDon);
+        if (orderItem) {
+          orderItem.danhGia = result.data.rating;
+        }
+      }
+    });
+
+    await modal.present();
+  }
+
   // Điều hướng về trang Home
   navigationHome() {
     this.router.navigate(['tabs/home']);
+  }
+
+  navigationInvoiceDetail(orderId: string) {
+    this.router.navigate(['/invoice-detail', orderId]); // Sử dụng cú pháp này
   }
 }
