@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="profile-header">
+    <ion-avatar>
+      <img src="../../assets/dummy-pic.avif" alt="Profile Picture">
+    </ion-avatar>
+    <ion-label class="profile-name">Bùi Minh Liên</ion-label>
+  </div>
+
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Username</ion-label>
+      <ion-input type="text" value="Bùi Minh Liên"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input type="email" value="minhlien2077@gmail.com"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Phone Number</ion-label>
+      <ion-input type="tel" value="+84 792789138"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Password</ion-label>
+      <ion-input type="password" value="abcde"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <div class="update-button">
+    <ion-button expand="block" color="dark">Cập nhật thông tin</ion-button>
+  </div>
+</ion-content>
