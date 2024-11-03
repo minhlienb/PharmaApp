@@ -87,7 +87,5 @@ export class OrderConfirmationPage implements OnInit {
   }
 
   confirmOrder() {
-    console.log('Order confirmed with address:', this.selectedAddress);
-    console.log('Delivery service selected:', this.telephone);
   }
 }

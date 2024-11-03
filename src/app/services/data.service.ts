@@ -75,4 +75,7 @@ export class DataService {
       ref.orderByChild('status').equalTo(false)
     ).snapshotChanges();
   }
+  setOrderById(deviceId:string,Data:object){
+    
+  }
 }
