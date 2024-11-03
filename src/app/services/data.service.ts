@@ -77,7 +77,9 @@ export class DataService {
             createAt: orderData.createAt,
             totalAmount:orderData.totalAmount,
             products: orderData.products || [],
-            telephone: orderData.telephone || ''
+            telephone: orderData.telephone || '',
+            paid:orderData.paid,
+            status:orderData.status
           };
         })
       )
