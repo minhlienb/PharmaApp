@@ -84,14 +84,14 @@ export class OrderConfirmationPage implements OnInit {
       },
       telephone: this.telephone,
       totalAmount:this.getTotalPrice(),
+      status:'Chờ xử lý',
+      paid:false,
       products: this.selectedProduct.map(product => ({
         product: product.product || product.productId,
         category: product.category,
         name: product.name,
         price: product.price,
         quantity: product.quantity,
-        status:'Chờ xử lý',
-        paid:false
       }))
     };
     
