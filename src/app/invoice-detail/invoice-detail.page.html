@@ -1,13 +1,36 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>InvoiceDetail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Chi Tiết Hóa Đơn</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">InvoiceDetail</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Mã Hóa Đơn: {{ order.hoaDon }}</ion-card-title>
+      <p>Ngày Mua: {{ order.ngayMua }}</p>
+    </ion-card-header>
+
+    <ion-list>
+      <ion-item *ngFor="let product of order.products">
+        <ion-label>
+          <h2>{{ product.name }}</h2>
+          <p>Danh Mục: {{ product.category }}</p>
+          <p>Giá: {{ product.price | currency:'VND' }}</p>
+          <p>Số Lượng: {{ product.quantity }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-item lines="full">
+      <ion-label>Tổng Giá</ion-label>
+      <ion-note slot="end" color="primary">{{ order.thanhTien | currency:'VND' }}</ion-note>
+    </ion-item>
+  </ion-card>
 </ion-content>
+<ion-button (click)="reoder()" expand="block" fill="clear" shape="round">
+  Mua lại
+</ion-button>
