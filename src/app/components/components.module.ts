@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { ProductCardComponent } from "./product-card/product-card.component";
+import { RatingPopupComponent } from "./rating-popup/rating-popup.component";
 import { IonicModule } from "@ionic/angular";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
@@ -10,8 +11,8 @@ import { FormsModule } from "@angular/forms";
         FormsModule,
         IonicModule,
       ],
-    declarations: [ProductCardComponent],
-    exports: [ProductCardComponent, IonicModule]
+    declarations: [ProductCardComponent, RatingPopupComponent],
+    exports: [ProductCardComponent, RatingPopupComponent, IonicModule]
 })
 export class ComponentsModule {}   
 

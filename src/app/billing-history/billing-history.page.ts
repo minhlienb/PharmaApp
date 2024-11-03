@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { RatingPopupComponent } from '../components/rating-popup/rating-popup.component';
 
 @Component({
   selector: 'app-billing-history',
@@ -22,17 +24,31 @@ export class BillingHistoryPage {
       ngayMua: '15-09-2023',
     },
   ];
+  constructor(private modalCtrl: ModalController) {}
 
 
-  // Đánh giá đơn hàng: 
-  rateOrder(orderId: number) { 
-    console.log('Đánh giá cho đơn hàng ID:', orderId);
-    // thêm đánh giá từ userid vào id đơn hàng
+  async rateOrder(orderId: number) {
+    const modal = await this.modalCtrl.create({
+      component: RatingPopupComponent,
+      componentProps: { orderId: orderId },
+    });
+
+    modal.onDidDismiss().then((result) => {
+      if (result.data) {
+        console.log('User Rating:', result.data.rating);
+        // Cập nhật đánh giá của đơn hàng trong hệ thống của bạn
+        const order = this.billingHistory.find(o => o.id === orderId);
+        if (order) {
+          order.danhGia = result.data.rating;
+        }
+      }
+    });
+
+    await modal.present();
   }
 
-  // Mua lại đơn hàng
   reorder(orderId: number) {
-    console.log('Mua lại đơn hàng ID:', orderId);
-    // Lấy thông tin của tất cả sản phẩm trong hóa đơn rồi thêm vào trong giỏ hàng
+    console.log("Reordering order with ID:", orderId);
+    // Xử lý logic mua lại đơn hàng
   }
 }

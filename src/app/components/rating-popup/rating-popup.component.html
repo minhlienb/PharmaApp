@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Đánh Giá</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Đóng</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <p>Vui lòng đánh giá đơn hàng:</p>
+  <div class="stars">
+    <ion-icon 
+      *ngFor="let star of [1,2,3,4,5]" 
+      [name]="star <= rating ? 'star' : 'star-outline'" 
+      (click)="setRating(star)"
+      color="warning"
+      size="large">
+    </ion-icon>
+  </div>
+
+  <ion-button expand="block" color="primary" (click)="submitRating()">Gửi Đánh Giá</ion-button>
+</ion-content>
