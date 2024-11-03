@@ -4,6 +4,9 @@
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
     <ion-title>Thông báo</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="custom" (click)="clearNotification()">Clear</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -13,6 +16,7 @@
       <ion-title size="large">Thông báo</ion-title>
     </ion-toolbar>
   </ion-header>
+  
   <app-notification 
     *ngFor="let notification of notifications" 
     [title]="notification.title"
