@@ -14,8 +14,9 @@
       <ion-item>
         <ion-icon name="location-outline" slot="start"></ion-icon>
         <ion-label (click)="openAddressSelector()">
-          <h2>{{ selectedAddress?.title || 'Chưa có địa chỉ' }}</h2>
-          <p>{{ selectedAddress?.content || 'Nội dung địa chỉ' }}</p>
+          <h2>Địa chỉ nhận hàng</h2>
+          <p><span>{{ selectedAddress?.title || 'Chưa chọn địa chỉ' }}</span></p>
+          <p>{{ selectedAddress?.content || '' }}</p>
           <p>Số điện thoại: {{ telephone }}</p>
         </ion-label>
       </ion-item>
@@ -28,27 +29,39 @@
       <ion-label>Chi tiết đơn hàng</ion-label>
     </ion-card-header>
     <ion-card-content>
-      <ion-list>
-        <ng-container *ngFor="let product of selectedProducts; let i = index">
+      <ion-list *ngIf="selectedProduct.length > 0">
+        <ng-container *ngFor="let selectedProduct of selectedProduct; let i = index">
           <ion-item>
             <ion-label>
-              <h2>{{ product.name }}</h2>
-              <p>{{ product.category }}</p>
-              <p>₫{{ product.price | number: '1.2-2' }}</p>
+              <h2>{{ selectedProduct.name }}</h2>
+              <p>{{ selectedProduct.category }}</p>
+              <p>₫{{ selectedProduct.price | number: '1.2-2' }}</p>
             </ion-label>
             <ion-buttons slot="end">
               <ion-button (click)="decreaseQuantity(i)">−</ion-button>
-              <ion-label>{{ product.quantity }}</ion-label>
+              <ion-label>{{ selectedProduct.quantity }}</ion-label>
               <ion-button (click)="increaseQuantity(i)">+</ion-button>
             </ion-buttons>
           </ion-item>
         </ng-container>
       </ion-list>
-
-      <!-- Tổng cộng -->
+      
+      <!-- Thông tin giá -->
+      <ion-item>
+        <ion-label>Tổng hóa đơn</ion-label>
+        <ion-label slot="end">₫{{ getTotalPrice() | number: '1.2-2' }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Giảm giá</ion-label>
+        <ion-label slot="end">₫{{ discount | number: '1.2-2' }}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Vận chuyển</ion-label>
+        <ion-label slot="end">Free</ion-label>
+      </ion-item>
       <ion-item>
         <ion-label>Tổng cộng</ion-label>
-        <ion-label slot="end">₫{{ getTotalPrice() | number: '1.2-2' }}</ion-label>
+        <ion-label slot="end">₫{{ getTotalPrice() - discount | number: '1.2-2' }}</ion-label>
       </ion-item>
     </ion-card-content>
   </ion-card>

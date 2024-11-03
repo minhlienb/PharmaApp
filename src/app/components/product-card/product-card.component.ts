@@ -5,6 +5,7 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { NotificationService } from 'src/app/services/notification.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-product-card',
@@ -27,8 +28,8 @@ export class ProductCardComponent implements OnInit {
     private alertController: AlertController,
     private db: AngularFireDatabase,
     private router: Router,
-    private notificationService:NotificationService
-
+    private notificationService:NotificationService,
+    private dataService:DataService
   ) { }
 
   ngOnInit() { }
@@ -72,14 +73,29 @@ export class ProductCardComponent implements OnInit {
           const updateQuantity = item.quantity + 1;
           await productRef.update({ quantity: updateQuantity });
           this.presentAlerts("Sản phẩm đã được cập nhật trong giỏ hàng");
-
-          this.notificationService.addNotification('Cập nhật giỏ hàng', `Sản phẩm ${this.title} đã được cập nhật trong giỏ hàng.`);
+          const notificationData={
+            content: `Sản phẩm ${this.title} đã được cập nhật trong giỏ hàng.`,
+            status: false,
+            title: 'Cập nhật giỏ hàng',
+            createAt: Date.now(),
+            newNotification:true
+          }
+          const notificationKey=uuidv4();
+          this.dataService.setNotificationsByDeviceId(deviceId,notificationKey,notificationData);
           return;
         }
         else {
           await productRef.set(productData);
           this.presentAlerts('Đã thêm vào giỏ hàng!');
-          this.notificationService.addNotification('Thêm vào giỏ hàng', `Sản phẩm ${this.title} đã được thêm vào giỏ hàng!`);
+          const notificationData={
+            content: `Sản phẩm ${this.title} đã được thêm trong giỏ hàng.`,
+            status: false,
+            title: 'Cập nhật giỏ hàng',
+            createAt: Date.now(),
+            newNotification:true
+          }
+          const notificationKey=uuidv4();
+          this.dataService.setNotificationsByDeviceId(deviceId,notificationKey,notificationData);
           return;
         }
       });

@@ -31,7 +31,7 @@ export class HomePage implements OnInit {
       this.products = data;
       this.filteredProducts=data;
     });
-    
+    console.log('userData',localStorage.getItem('userData'));
   }
   loadProductByCate(categoriId:string){
     this.dataService.getProductsByCate(categoriId).subscribe((data:any[])=>{

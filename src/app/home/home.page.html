@@ -27,11 +27,17 @@
       </div>
     </div>
 
+    <br>
     <div class="card-container">
-      <app-product-card class="small-card" *ngFor="let product of filteredProducts" [title]="product.title"
-        [imageUrl]="product.imageUrl" [description]="product.description" [productId]="product.key"
-        [price]="product.price" [type]="product.type">
-        <p style="position: absolute; z-index: -2; left: 30px;">Hỏng có gì hết ¯\_(ツ)_/¯ </p>
+      <p style="position: absolute; z-index: -2; left: 30px;">Đang tải...</p>
+      <app-product-card class="small-card"
+        *ngFor="let product of filteredProducts"
+        [title]="product.title"
+        [imageUrl]="product.imageUrl"
+        [description]="product.description"
+        [productId]="product.key"  
+        [price]="product.price"
+        [type]="product.type">    
       </app-product-card>
     </div>
   </ion-content>

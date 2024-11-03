@@ -4,9 +4,10 @@
   </ion-card-header>
   <ion-card-content>
     
-    <p>{{ description }}</p>
+    <p class="description">{{ description }}</p>
     <img [src]="imageUrl" [alt]="title" />
   </ion-card-content>
 </ion-card>
-
-<ion-button (click)="AddToCart()">Mua liền</ion-button>
+<div class="button-container">
+  <ion-button (click)="AddToCart()">Mua Ngay</ion-button>
+</div>

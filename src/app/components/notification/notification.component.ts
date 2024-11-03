@@ -23,7 +23,7 @@ export class NotificationComponent  implements OnInit {
       this.status=true;
     }
     if(this.deviceId&&this.notificationId){
-      this.db.updateNotificationStatus(this.deviceId,this.notificationId,true);
+      this.db.updateNotificationStatus(this.deviceId,this.notificationId,true,false);
     }
   }
 }

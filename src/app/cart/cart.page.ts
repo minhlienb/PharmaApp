@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { v4 as uuidv4 } from 'uuid';
+
 
 
 @Component({
@@ -62,26 +62,13 @@ export class CartPage implements OnInit {
       return total + (product.price * product.quantity);
     }, 0);
   }
-  Pay() {
-    const deviceId = localStorage.getItem('deviceId');
-    if (deviceId) {
+  async Pay() {
       const selectedProducts = this.products.filter(item => item.selected);
-      if (selectedProducts.length > 0) {
-        const orderId = uuidv4();
-        const createdAt = new Date().toISOString();
-        const totalAmount = this.getTotalPrice();
-        const orderData = {
-          orderId: orderId,
-          deviceId: deviceId,
-          createdAt: createdAt,
-          status: "Chờ xác thực",
-          totalAmount: totalAmount,
-          selectedProducts: selectedProducts
-        };
-        console.log('orderData',orderData);
-        this.router.navigate(['/order-confirmation'], { state: orderData });
+      if (selectedProducts.length === 0) {
+        await this.presentAlerts("Bạn phải chọn ít nhất một sản phẩm để thanh toán.");
+        return;
       }
-    }
+    this.router.navigate(['/order-confirmation'], { queryParams: { selectedProducts:JSON.stringify(selectedProducts) } });
   }
   removeSelectItem() {
     const deviceId = localStorage.getItem('deviceId');
@@ -104,4 +91,5 @@ export class CartPage implements OnInit {
   navigateToProducts() {
     this.router.navigate(['/products']);
   }
+
 }
