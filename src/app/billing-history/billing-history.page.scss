@@ -1,16 +1,14 @@
-ion-content {
-    --background: #f8f8f8;
-  }
-  
-  ion-item {
-    --background: #ffffff;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  ion-button {
-    margin-top: 5px;
-  }
-  
+/* Thêm CSS này trong file .scss tương ứng */
+.order-container {
+  margin: 16px; /* Khoảng cách xung quanh mỗi hóa đơn */
+  padding: 16px;
+  border: 1px solid #ccc; /* Viền để tách biệt mỗi hóa đơn */
+  border-radius: 8px;
+  background-color: #f9f9f9; /* Màu nền nhạt cho mỗi hóa đơn */
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Khoảng cách giữa các nút */
+}

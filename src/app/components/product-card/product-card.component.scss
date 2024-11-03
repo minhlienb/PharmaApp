@@ -1,0 +1,36 @@
+/* CSS */
+.description {
+    display: -webkit-box;           /* Bật flex cho dòng chữ */
+    -webkit-box-orient: vertical;   /* Thiết lập hướng của hộp */
+    -webkit-line-clamp: 2;          /* Giới hạn số dòng hiển thị (ở đây là 3 dòng) */
+    overflow: hidden;               /* Ẩn phần văn bản vượt quá */
+    text-overflow: ellipsis;        /* Thêm dấu "..." khi văn bản bị cắt */
+    white-space: normal;            /* Cho phép xuống dòng */
+    min-height: 2.5em;
+    max-height: 3.5em;              /* Đảm bảo không vượt quá chiều cao cho 3 dòng (tùy theo font) */
+  }
+  
+
+// img {
+//     width: 100%;
+//     aspect-ratio: 1;
+//     object-fit: cover;
+// }
+
+/* CSS */
+.card-title {
+    white-space: wrap;       /* Đặt tiêu đề trên một dòng */
+    height: 6em;
+    overflow: hidden;          /* Ẩn phần vượt quá */
+    text-overflow: ellipsis;   /* Thêm dấu “…” ở cuối nếu bị cắt */
+  }
+
+  /* CSS */
+.button-container {
+    // border: 2px #000 solid;
+    display: flex;           /* Sắp xếp các nút theo hàng ngang */
+    gap: 8px;                /* Khoảng cách giữa các nút */
+    justify-content: space-between; /* Căn đều khoảng cách nếu cần */
+    overflow: hidden;
+  }
+  

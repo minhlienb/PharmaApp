@@ -9,19 +9,24 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let order of billingHistory">
+    <div *ngFor="let order of billingHistory" class="order-container">
       <ion-label>
         <h2>Hóa Đơn: {{ order.hoaDon }}</h2>
         <p>Thành Tiền: {{ order.thanhTien }}</p>
         <p>Ngày Mua: {{ order.ngayMua }}</p>
-        <p>Đánh Giá: <ion-icon name="star" *ngFor="let star of [].constructor(order.danhGia)"></ion-icon></p>
+        <p>Đánh Giá: 
+          <ion-icon name="star" *ngFor="let star of [].constructor(order.danhGia)"></ion-icon>
+        </p>
       </ion-label>
-      <ion-button expand="block" fill="outline" color="primary" (click)="rateOrder(order.id)">
-        Đánh Giá
-      </ion-button>
-      <ion-button expand="block" fill="outline" color="secondary" (click)="reorder(order.id)">
-        Mua Lại Đơn Hàng
-      </ion-button>
-    </ion-item>
+
+      <div class="button-container">
+        <ion-button expand="block" fill="outline" color="primary" (click)="rateOrder(order.id)">
+          Đánh Giá
+        </ion-button>
+        <ion-button expand="block" fill="outline" color="secondary" (click)="reorder(order.id)">
+          Mua Lại Đơn Hàng
+        </ion-button>
+      </div>
+    </div>
   </ion-list>
 </ion-content>

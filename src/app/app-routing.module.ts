@@ -34,6 +34,10 @@ const routes: Routes = [
     path: 'invoice-detail',
     loadChildren: () => import('./invoice-detail/invoice-detail.module').then( m => m.InvoiceDetailPageModule)
   },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
 ];
 @NgModule({
   imports: [

@@ -1,0 +1,31 @@
+ion-content {
+    --background: #ffffff;
+  }
+  
+  .profile-header {
+    background-color: #3b5998; /* Use your desired color */
+    padding: 20px;
+    text-align: center;
+    color: white;
+  }
+  
+  .profile-header ion-avatar {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+  }
+  
+  .profile-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .update-button {
+    padding: 20px;
+  }
+  
+  ion-button {
+    --border-radius: 10px;
+  }
+  
