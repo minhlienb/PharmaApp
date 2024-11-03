@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
-    <ion-title>My Profile</ion-title>
+    <ion-title>Thông tin cá nhân</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -27,17 +27,27 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Phone Number</ion-label>
-      <ion-input type="tel" value="+84 792789138"></ion-input>
+      <ion-label position="stacked">Điện thoại</ion-label>
+      <ion-input type="tel" value="+84792789138"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Password</ion-label>
-      <ion-input type="password" value="abcde"></ion-input>
+      <ion-label position="stacked">Mật khẩu hiện tại</ion-label>
+      <ion-input type="password" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Mật khẩu mới</ion-label>
+      <ion-input type="password" ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nhập lại mật khẩu</ion-label>
+      <ion-input type="password" ></ion-input>
     </ion-item>
   </ion-list>
 
   <div class="update-button">
-    <ion-button expand="block" color="dark">Cập nhật thông tin</ion-button>
+    <ion-button (click)="UpdateProfile()" expand="block" color="dark">Cập nhật thông tin</ion-button>
   </div>
 </ion-content>
