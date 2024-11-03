@@ -22,7 +22,6 @@ export class NotificationsPage implements OnInit {
     });
     this.db.checkNewNotification(this.deviceId).subscribe((newNotification)=>{
       if(newNotification.length>0){
-        this.showNotificationAlert(newNotification.length);
         this.showToast('Bạn có thông báo mới');
       }
     });
@@ -35,8 +34,16 @@ export class NotificationsPage implements OnInit {
     });
     toast.present();
   }
-  showNotificationAlert(count:number){
-    alert(`Bạn có ${count} thông báo mới!`);
+  clearNotification(){
+    this.db.removeNotificationById(this.deviceId).then(
+      (response)=>{
+        console.log("Đã dọn dẹp thông báo ",response);
+      }
+    )
+    .catch(
+      (error)=>{
+        console.log("không thể xóa thông báo ",error);
+      }
+    )
   }
-  
 } 

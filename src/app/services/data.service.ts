@@ -1,12 +1,21 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Title } from '@angular/platform-browser';
+import { key } from 'ionicons/icons';
 import { map, Observable } from 'rxjs';
+interface NotificationData {
+  status: boolean; // Đảm bảo là boolean
+  newNotification: boolean; // Đảm bảo là boolean
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class DataService {
-  constructor(private db: AngularFireDatabase) {}
+
+  constructor(private db: AngularFireDatabase) {
+  }
 
   getProducts(): Observable<any[]> {
     return this.db.list('products').snapshotChanges().pipe(
@@ -44,8 +53,20 @@ export class DataService {
       )
     )
   }
+  
+  getUserInfo(deviceId: string): Observable<any> {
+    return this.db.object(`users/${deviceId}`).valueChanges().pipe(
+      map((data: any) => ({
+        addresses: data.address ? Object.keys(data.address).map(key => ({
+          key: key,
+          ...data.address[key]
+        })) : [],
+        telephone: data.telephone || ''
+      }))
+    );
+  }
   getNotificationsByDeviceId(deviceId:string):Observable<any[]>{
-    return this.db.list(`/notifications/${deviceId}`).snapshotChanges().pipe(
+    return this.db.list(`notifications/${deviceId}`).snapshotChanges().pipe(
       map(change=>
         change.map(c=>({
           notificationId:c.payload.key,
@@ -54,14 +75,42 @@ export class DataService {
       )
     );
   }
-
-  updateNotificationStatus(deviceId:string,notificationId:string,status:boolean){
-    this.db.object(`/notifications/${deviceId}/${notificationId}`).update({status:status});
+  setNotificationsByDeviceId(deviceId:string,notificationKey:string,notificationData:object){
+    this.db.object(`/notifications/${deviceId}/${notificationKey}`).set(notificationData).then(()=>{
+      console.log('Đã thêm thông báo mới');
+    })
+    .catch((error)=>{
+      console.log('Lỗi thêm thông báo');
+    })
+  }
+  setOrderByDeviceId(deviceId: string, data: object, orderId: string): Promise<void> {
+    return this.db.object(`/orders/${deviceId}/${orderId}`).set(data)
+      .then(() => {
+        console.log('Đã tạo đơn hàng mới');
+      })
+      .catch((error) => {
+        console.log('Lỗi tạo đơn hàng mới: ', error);
+        throw error; // Ném lỗi ra ngoài để có thể xử lý bên ngoài
+      });
+  }
+  updateNotificationStatus(deviceId:string,notificationId:string,status:boolean,newNotification:boolean){
+    this.db.object(`/notifications/${deviceId}/${notificationId}`).update(
+      {
+        status:status,
+        newNotification:newNotification
+      }
+    );
   }
 
   checkNewNotification(deviceId:string): Observable<any[]>{
     return this.db.list(`/notifications/${deviceId}`,ref=>
-      ref.orderByChild('status').equalTo(false)
+      ref.orderByChild('newNotification').equalTo(true)
     ).snapshotChanges();
+  }
+  removeProductInCartById(deviceId:string,productId:string):Promise<void>{
+    return this.db.object(`cart/${deviceId}/${productId}`).remove();
+  }
+  removeNotificationById(deviceId:string):Promise<void>{
+    return this.db.object(`notifications/${deviceId}`).remove();
   }
 }

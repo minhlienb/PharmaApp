@@ -1,60 +1,64 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { DataService } from './data.service';
 import { BehaviorSubject } from 'rxjs';
-import { AngularFireMessaging } from '@angular/fire/compat/messaging';
+import { FCM } from '@capacitor-community/fcm';
 import { v4 as uuidv4 } from 'uuid';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-
-  private deviceId:string;
-
-  currentMessage=new BehaviorSubject<any>(null);
+  private deviceId: string;
+  currentMessage = new BehaviorSubject<any>(null);
 
   constructor(
-    private db: AngularFireDatabase
+    private db: DataService
   ) {
-    this.deviceId=localStorage.getItem('deviceId')||uuidv4();
+    // Khởi tạo deviceId và lưu vào localStorage nếu chưa có
+    this.deviceId = localStorage.getItem('deviceId') || uuidv4();
     localStorage.setItem('deviceId', this.deviceId);
-    this.listenForNotifications();
+
+    this.requestPermission();
+    this.listenForDatabaseNotifications();
   }
 
- 
-  listenForNotifications(){
-    this.db.object(`notifications/${this.deviceId}`).snapshotChanges().subscribe(notification => {
-      const data = notification.payload.val();
-      if (data) {
-        this.handleFCMNotification(data);
-      }
-    });
-  }
-
-  showNotification(notification: any) {
-    const { title, content } = notification;
-    const options = {
-      body: content,
-      icon: 'assets/icon/favicon.png'
-    };
-    new Notification(title, options);
-  }
-  
-  handleFCMNotification(notification:any){
-    const { title, body } = notification.notification || { title: '', body: '' };
-    if (title && body) {
-      const options = {
-        body: body,
-        icon: 'assets/icon/favicon.png'
-      };
-      new Notification(title, options);
+  async requestPermission() {
+    try {
+      const { token } = await FCM.getToken();
+      console.log('FCM Token:', token);
+      // Gửi token này lên server nếu cần để sử dụng cho các yêu cầu FCM tiếp theo
+    } catch (error) {
+      console.error('Error getting FCM token:', error);
     }
   }
-  addNotification(title: string, content: string) {
-    const notificationId = uuidv4();
-    const notificationData = { title, content };
-    // Lưu thông báo vào Realtime Database
-    this.db.object(`notifications/${this.deviceId}/${notificationId}`).set(notificationData);
+
+  listenForDatabaseNotifications() {
+    this.db.checkNewNotification(this.deviceId).subscribe(ds=>{
+      ds.forEach(item=>{
+        const notification=item.payload.val();
+        this.sendPushNotification(notification);
+        if(notification.key){
+          this.db.updateNotificationStatus(this.deviceId, notification.key, true, false);
+        }
+      })
+    })
+  }
+
+  async sendPushNotification(notification: any) {
+    try {
+      const { title, content } = notification;
+      const payload = {
+        notification: {
+          title: title,
+          body: content,
+          icon: 'assets/icon/favicon.png'
+        }
+      };
+      this.currentMessage.next(payload);
+      console.log('Push Notification:', payload);
+    } catch (error) {
+      console.error('Error sending push notification:', error);
+    }
   }
 }

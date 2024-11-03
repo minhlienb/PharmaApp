@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -7,28 +7,21 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./address-selector.page.scss'],
 })
 export class AddressSelectorPage {
-  selectedAddress: string = 'home';
-  selectedDeliveryService: string = 'tiki-now';
+  selectedAddress: any = null; // Cập nhật để phù hợp với đối tượng địa chỉ
+  address: any[] = []; // Danh sách địa chỉ sẽ được truyền từ component cha
 
   constructor(private modalController: ModalController) {}
 
-  // Hàm xử lý khi người dùng chọn một địa chỉ
-  async selectAddress(address: string) {
+  // Hàm để chọn địa chỉ
+  async selectAddress(address: any) {
     this.selectedAddress = address;
     this.closeModal();
   }
 
-  // Hàm xử lý khi người dùng chọn dịch vụ giao hàng
-  async selectDeliveryService(service: string) {
-    this.selectedDeliveryService = service;
-    this.closeModal();
-  }
-
-  // Đóng modal và trả lại thông tin địa chỉ và dịch vụ giao hàng đã chọn
+  // Đóng modal và trả lại thông tin địa chỉ đã chọn
   async closeModal() {
     await this.modalController.dismiss({
-      address: this.selectedAddress,
-      deliveryService: this.selectedDeliveryService
+      address: this.selectedAddress
     });
   }
 }
