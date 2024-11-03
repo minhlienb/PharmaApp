@@ -1,38 +1,66 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-billing-history',
   templateUrl: './billing-history.page.html',
   styleUrls: ['./billing-history.page.scss'],
 })
-export class BillingHistoryPage {
-  billingHistory = [ // thêm một bảng billing History vào trong CSDL
-    {
-      id: 1,
-      hoaDon: 'HD123456',
-      thanhTien: '500,000 VND',
-      danhGia: 4,  // out of 5 stars
-      ngayMua: '01-10-2023',
-    },
-    {
-      id: 2,
-      hoaDon: 'HD123457',
-      thanhTien: '300,000 VND',
-      danhGia: 5,  // out of 5 stars
-      ngayMua: '15-09-2023',
-    },
-  ];
+export class BillingHistoryPage implements OnInit {
+  billingHistory: any[] = []; // lưu trữ danh sách đơn hàng từ cơ sở dữ liệu
 
+  constructor(
+    private router: Router,
+    private db: DataService
+  ) {}
 
-  // Đánh giá đơn hàng: 
-  rateOrder(orderId: number) { 
+  ngOnInit() {
+    const deviceId = localStorage.getItem('deviceId'); // Lấy UID từ localStorage
+    if (deviceId) {
+      this.db.getOrderDetails(deviceId).subscribe((data) => {
+        this.billingHistory = data.map(order => ({
+          hoaDon: order.orderId,
+          thanhTien: order.totalAmount,
+          ngayMua: new Date(order.createAt).toLocaleDateString('vi-VN'), 
+          danhGia: 0,
+          products: order.products // Lưu lại danh sách sản phẩm
+        }));
+        console.log('Billing History:', this.billingHistory); // Đảm bảo có dữ liệu
+      });
+    }
+  }
+
+  // Đánh giá đơn hàng
+  rateOrder(orderId: number) {
     console.log('Đánh giá cho đơn hàng ID:', orderId);
-    // thêm đánh giá từ userid vào id đơn hàng
   }
 
   // Mua lại đơn hàng
-  reorder(orderId: number) {
-    console.log('Mua lại đơn hàng ID:', orderId);
-    // Lấy thông tin của tất cả sản phẩm trong hóa đơn rồi thêm vào trong giỏ hàng
+  reorder(order: any) {
+    // Kiểm tra xem order có chứa sản phẩm không
+    if (!order.products || order.products.length === 0) {
+      console.error('Không có sản phẩm trong đơn hàng:', order);
+      return; // Dừng lại nếu không có sản phẩm
+    }
+
+    const selectedProducts = order.products; // Lấy danh sách sản phẩm từ đơn hàng
+    const totalAmount = order.thanhTien; // Lấy tổng số tiền từ đơn hàng
+
+    console.log('Selected Products:', selectedProducts); // Kiểm tra sản phẩm được chọn
+    console.log('Total Amount:', totalAmount); // Kiểm tra tổng giá trị
+
+    // Điều hướng đến trang order-confirmation với các tham số đã chọn
+    this.router.navigate(['/order-confirmation'], {
+      queryParams: {
+        products: JSON.stringify(selectedProducts), // Chuyển đổi danh sách sản phẩm thành chuỗi JSON
+        totalAmount: totalAmount // Sử dụng tổng số tiền
+      }
+    });
+  }
+
+  // Điều hướng về trang Home
+  navigationHome() {
+    this.router.navigate(['tabs/home']);
   }
 }

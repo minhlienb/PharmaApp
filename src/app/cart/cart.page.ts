@@ -68,7 +68,7 @@ export class CartPage implements OnInit {
         await this.presentAlerts("Bạn phải chọn ít nhất một sản phẩm để thanh toán.");
         return;
       }
-    this.router.navigate(['/order-confirmation'], { queryParams: { selectedProducts:JSON.stringify(selectedProducts) } });
+    this.router.navigate(['/order-confirmation'], { queryParams: { products:JSON.stringify(selectedProducts),totalAmount:this.getTotalPrice } });
   }
   removeSelectItem() {
     const deviceId = localStorage.getItem('deviceId');

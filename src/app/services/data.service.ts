@@ -65,6 +65,24 @@ export class DataService {
       }))
     );
   }
+
+  getOrderDetails(deviceId: string): Observable<any[]> {
+    return this.db.list(`/orders/${deviceId}`).snapshotChanges().pipe(
+      map(change =>
+        change.map(c => {
+          const orderData = c.payload.val() as any;
+          return {
+            orderId: c.payload.key,
+            address: orderData.address,
+            createAt: orderData.createAt,
+            totalAmount:orderData.totalAmount,
+            products: orderData.products || [],
+            telephone: orderData.telephone || ''
+          };
+        })
+      )
+    );
+  }
   getNotificationsByDeviceId(deviceId:string):Observable<any[]>{
     return this.db.list(`notifications/${deviceId}`).snapshotChanges().pipe(
       map(change=>

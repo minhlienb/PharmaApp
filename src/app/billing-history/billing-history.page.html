@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="home"></ion-back-button>
+      <ion-back-button defaultHref="home" (click)="navigationHome()"></ion-back-button>
     </ion-buttons>
     <ion-title>Lịch Sử Đơn Hàng</ion-title>
   </ion-toolbar>
@@ -18,12 +18,12 @@
           <ion-icon name="star" *ngFor="let star of [].constructor(order.danhGia)"></ion-icon>
         </p>
       </ion-label>
-
+  
       <div class="button-container">
-        <ion-button expand="block" fill="outline" color="primary" (click)="rateOrder(order.id)">
+        <ion-button expand="block" fill="outline" color="primary" (click)="rateOrder(order.hoaDon)">
           Đánh Giá
         </ion-button>
-        <ion-button expand="block" fill="outline" color="secondary" (click)="reorder(order.id)">
+        <ion-button expand="block" fill="outline" color="secondary" (click)="reorder(order)">
           Mua Lại Đơn Hàng
         </ion-button>
       </div>

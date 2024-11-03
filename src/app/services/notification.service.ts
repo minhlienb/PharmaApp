@@ -26,10 +26,7 @@ export class NotificationService {
   async requestPermission() {
     try {
       const { token } = await FCM.getToken();
-      console.log('FCM Token:', token);
-      // Gửi token này lên server nếu cần để sử dụng cho các yêu cầu FCM tiếp theo
     } catch (error) {
-      console.error('Error getting FCM token:', error);
     }
   }
 
@@ -56,7 +53,6 @@ export class NotificationService {
         }
       };
       this.currentMessage.next(payload);
-      console.log('Push Notification:', payload);
     } catch (error) {
       console.error('Error sending push notification:', error);
     }

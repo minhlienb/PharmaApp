@@ -14,9 +14,8 @@ export class OrderConfirmationPage implements OnInit {
   selectedProduct: any[] = [];
   address: any[] = [];
   telephone: string = '';
-  deviceId = "37GXXv56z4fCbjtlvWCdVXMvpqn2";
+  deviceId = localStorage.getItem('deviceId')||uuidv4();
   selectedAddress: any = null;
-  totalAmount: number = 185.00;
   discount = 0;
   constructor(
     private modalController: ModalController,
@@ -39,7 +38,7 @@ export class OrderConfirmationPage implements OnInit {
       }
     });
 
-    const products = this.activeRoute.snapshot.queryParamMap.get('selectedProducts');
+    const products = this.activeRoute.snapshot.queryParamMap.get('products');
     if (products) {
       this.selectedProduct = JSON.parse(products);
       console.log('product', this.selectedProduct);
@@ -84,8 +83,9 @@ export class OrderConfirmationPage implements OnInit {
         content: this.selectedAddress.content,
       },
       telephone: this.telephone,
+      totalAmount:this.getTotalPrice(),
       products: this.selectedProduct.map(product => ({
-        product: product.productId,
+        product: product.product || product.productId,
         category: product.category,
         name: product.name,
         price: product.price,
@@ -94,6 +94,7 @@ export class OrderConfirmationPage implements OnInit {
         paid:false
       }))
     };
+    
   }
   removeProductById(productId: string) {
     this.selectedProduct = this.selectedProduct.filter(product => product.productId !== productId);
@@ -111,6 +112,7 @@ export class OrderConfirmationPage implements OnInit {
   async confirmOrder() {
     const orderId = uuidv4();
     const orderData = this.createOrderData();
+    console.log("orderData",orderData)
     try {
       await this.db.setOrderByDeviceId(this.deviceId, orderData, orderId); 
       this.presentAlerts("Đơn hàng đã được tạo");
@@ -139,7 +141,7 @@ export class OrderConfirmationPage implements OnInit {
           }
           const notificationKey=uuidv4();
           this.db.setNotificationsByDeviceId(this.deviceId,notificationKey,notificationData);
-          this.router.navigate(['/cart'])
+          this.router.navigate(['tabs/cart'])
     }
   }
 }
