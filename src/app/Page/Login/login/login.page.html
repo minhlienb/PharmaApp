@@ -1,27 +1,32 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>LOGIN</ion-title>
+    <ion-title>Đăng nhập</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="form">
-    <ion-input [(ngModel)]="email" required type="email" label="Email" labelPlacement="floating"
-      placeholder="Enter email"></ion-input>
-    <ion-input type="password" label="Password" labelPlacement="floating" placeholder="Enter password"
-      [(ngModel)]="password" required><ion-input-password-toggle slot="end"></ion-input-password-toggle></ion-input>
+
+    <ion-item>
+      <ion-input [(ngModel)]="email" required type="email" label="Email" labelPlacement="floating" placeholder="Enter email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input [(ngModel)]="password" required type="password" label="Mật khẩu" labelPlacement="floating" placeholder="Enter password"><ion-input-password-toggle></ion-input-password-toggle></ion-input>
+    </ion-item>
+
     <ion-button (click)="onLogin()" expand="full" fill="outline" shape="round">
       Submit
     </ion-button>
   </div>
   <div class="register">
     <ion-button fill="clear" size="small">
-      Forgot account?
+      Quên mật khẩu?
     </ion-button>
     <div class="text">
-      <p>Don't have an account?</p>
+      <p>Chưa có tài khoản?</p>
       <ion-button fill="clear" class="btn_register" href="/register">
-        Register?
+        Đăng kí
       </ion-button>
     </div>
   </div>
