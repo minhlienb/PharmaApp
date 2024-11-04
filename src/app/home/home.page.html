@@ -6,10 +6,7 @@
   </ion-toolbar>
 
   <ion-toolbar>
-    <ion-searchbar (ionInput)="filterProducts($event)"></ion-searchbar>
-    <ion-button slot="end" fill="clear">
-      <ion-icon name="mic-outline"></ion-icon>
-    </ion-button>
+    <ion-searchbar placeholder="Tìm kiếm" (ionInput)="filterProducts($event)"></ion-searchbar>
     <ion-button slot="end" fill="clear">
       <ion-icon name="qr-code-outline"></ion-icon>
     </ion-button>
@@ -26,7 +23,7 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Home</ion-title>
+      <ion-title size="large">Trang chủ</ion-title>
     </ion-toolbar>
   </ion-header>
   
