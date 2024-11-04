@@ -30,7 +30,13 @@
     // border: 2px #000 solid;
     display: flex;           /* Sắp xếp các nút theo hàng ngang */
     gap: 8px;                /* Khoảng cách giữa các nút */
-    justify-content: space-between; /* Căn đều khoảng cách nếu cần */
+    justify-content: center; /* Căn đều khoảng cách nếu cần */
+    align-items: center;
     overflow: hidden;
+
   }
   
+
+  ion-card {
+    min-height: 34em;
+  }
