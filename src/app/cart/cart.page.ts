@@ -89,7 +89,7 @@ export class CartPage implements OnInit {
     return this.products.some(item => item.selected);
   }
   navigateToProducts() {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/tabs/home']);
   }
 
 }
