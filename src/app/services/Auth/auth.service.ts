@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Database, ref, set, get } from '@angular/fire/database';
-import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, authState } from '@angular/fire/auth';
+import { Database, ref, set, get, update } from '@angular/fire/database';
+import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, authState, updatePassword, User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { idToken } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 import { v4 as uuidv4 } from 'uuid';
+import { emailVerified } from '@angular/fire/auth-guard';
 
 @Injectable({
   providedIn: 'root'
@@ -21,46 +22,46 @@ export class AuthService {
 
   async register(fullName: string, email: string, password: string, telephone: string, address: { title: string, content: string }) {
     try {
-        const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
-        const userId = userCredential.user.uid;
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+      const userId = userCredential.user.uid;
 
-        const toast = await this.toastController.create({
-            message: 'Created account successfully',
-            duration: 2000,
-            color: 'success',
-            position: 'top'
-        });
+      const toast = await this.toastController.create({
+        message: 'Created account successfully',
+        duration: 2000,
+        color: 'success',
+        position: 'top'
+      });
 
-        // Tạo đối tượng dữ liệu cho người dùng
-        const userData = {
-            fullName: fullName,
-            email: email,
-            telephone: telephone,
-            address: {
-                [uuidv4()]: { // Tạo ID cho địa chỉ
-                    title: address.title,
-                    content: address.content
-                }
-            }
-        };
+      // Tạo đối tượng dữ liệu cho người dùng
+      const userData = {
+        fullName: fullName,
+        email: email,
+        telephone: telephone,
+        address: {
+          [uuidv4()]: { // Tạo ID cho địa chỉ
+            title: address.title,
+            content: address.content
+          }
+        }
+      };
 
-        // Lưu thông tin người dùng và địa chỉ chỉ bằng một lần set
-        const userRef = ref(this.db, `users/${userId}`);
-        await set(userRef, userData);
+      // Lưu thông tin người dùng và địa chỉ chỉ bằng một lần set
+      const userRef = ref(this.db, `users/${userId}`);
+      await set(userRef, userData);
 
-        await toast.present();
-        await this.router.navigate(['/login']);
+      await toast.present();
+      await this.router.navigate(['/login']);
     } catch (error) {
-        console.error('Registration Error:', error); // Ghi lỗi ra console
-        const toast = await this.toastController.create({
-            message: "Đã xảy ra lỗi khi tạo tài khoản. Vui lòng thử lại.",
-            duration: 2000,
-            color: 'danger',
-            position: 'top'
-        });
-        await toast.present();
+      console.error('Registration Error:', error); // Ghi lỗi ra console
+      const toast = await this.toastController.create({
+        message: "Đã xảy ra lỗi khi tạo tài khoản. Vui lòng thử lại.",
+        duration: 2000,
+        color: 'danger',
+        position: 'top'
+      });
+      await toast.present();
     }
-}
+  }
 
 
 
@@ -76,9 +77,9 @@ export class AuthService {
           color: 'success',
           position: 'top'
         });
-        await localStorage.setItem('userToken', token);
-        await localStorage.setItem('userData', JSON.stringify(user));
-        await localStorage.setItem('deviceId', user.uid);
+        localStorage.setItem('userToken', token);
+        // await localStorage.setItem('userData', JSON.stringify(user));
+        localStorage.setItem('deviceId', user.uid);
         await toast.present();
         await this.router.navigate(['tabs/home']);
       }
@@ -135,7 +136,39 @@ export class AuthService {
     }
   }
 
-  async update() {
-    // Function cập nhật có thể bổ sung tại đây
+  async update(uid: string, userData: any): Promise<void> {
+    try {
+      const userRef = ref(this.db, `users/${uid}`);
+
+      await update(userRef, {
+        fullName: userData.fullName,
+        email: userData.email,
+        telephone: userData.telephone,
+      })
+
+      if (userData.password) {
+        const user: User | null = this.auth.currentUser
+        if (user) {
+          await updatePassword(user, userData.password)
+        } else {
+          throw new Error("No authenticated user found");
+        }
+      }
+      const toast = await this.toastController.create({
+        message: 'Updating successfully',
+        duration: 1000,
+        color: 'success',
+        position: 'middle'
+      })
+      await toast.present()
+    } catch (error) {
+      const errorToast = await this.toastController.create({
+        message: 'Failed to update user information',
+        color: 'danger',
+        duration: 3000,
+        position: 'top'
+      });
+      await errorToast.present();
+    }
   }
 }

@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { RatingPopupComponent } from './rating-popup/rating-popup.component'; // Đảm bảo đường dẫn đúng
-
+import { AddressListComponent } from './address-list/address-list.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,11 +15,13 @@ import { RatingPopupComponent } from './rating-popup/rating-popup.component'; //
   ],
   declarations: [
     ProductCardComponent,
-    RatingPopupComponent, // Đảm bảo rằng component được khai báo ở đây
+    RatingPopupComponent,
+    AddressListComponent // Đảm bảo rằng component được khai báo ở đây
   ],
   exports: [
     ProductCardComponent,
-    RatingPopupComponent, // Xuất khẩu để sử dụng ở các module khác
+    RatingPopupComponent,
+    AddressListComponent // Xuất khẩu để sử dụng ở các module khác
   ]
 })
-export class ComponentsModule {}
+export class ComponentsModule { }

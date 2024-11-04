@@ -15,10 +15,10 @@ export class UserProfilePage implements OnInit {
   constructor(private auth: AuthService) { }
 
   async ngOnInit() {
-    const storedUserData = localStorage.getItem('userData');
+    const storedUserData = localStorage.getItem('deviceId');
     if (storedUserData) {
-      const { uid } = JSON.parse(storedUserData);
-      const user = await this.auth.getUser(uid)
+      // const { uid } = JSON.parse(storedUserData);
+      const user = await this.auth.getUser(storedUserData)
       if (user) {
         this.userData = {
           uid: user.uid,
