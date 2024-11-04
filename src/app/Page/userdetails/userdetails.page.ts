@@ -25,15 +25,12 @@ export class UserdetailsPage implements OnInit {
 
   private async fetchUserData() {
     const storedUserData = localStorage.getItem('userData');
-
-
     if (storedUserData) {
       const { uid } = JSON.parse(storedUserData);
       const user = await this.auth.getUser(uid)
       // console.log(user);
       if (user) {
         this.userData = {
-          id: uid,
           fullName: user.fullName || '',
           email: user.email || '',
           password: user.password || '',
