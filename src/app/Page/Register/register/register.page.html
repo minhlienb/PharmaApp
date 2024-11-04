@@ -1,30 +1,30 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button>Back</ion-back-button>
+      <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Register</ion-title>
+    <ion-title>Đăng kí tài khoản mới</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="form">
-    <ion-input [(ngModel)]="fullName" type="text" label="Full Name" label-placement="floating" fill="outline"
-      placeholder="Enter your name"></ion-input>
+    <ion-input [(ngModel)]="fullName" type="text" label="Họ tên" label-placement="floating" fill="outline"
+      placeholder="Hãy nhập họ tên"></ion-input>
     <ion-input [(ngModel)]="email" type="email" label="Email" label-placement="floating" fill="outline"
-      placeholder="Enter email"></ion-input>
-    <ion-input [(ngModel)]="password" type="password" fill="outline" label="Password" label-placement="floating"
-      placeholder="Enter password" required></ion-input>
-    <ion-input [(ngModel)]="telephone" label="Telephone" label-placement="floating" fill="outline"
-      placeholder="Enter phone number"></ion-input>
+      placeholder="Hãy nhập email"></ion-input>
+    <ion-input [(ngModel)]="password" type="password" fill="outline" label="Mật khẩu" label-placement="floating"
+      placeholder="Hãy nhập mật khẩu" required></ion-input>
+    <ion-input [(ngModel)]="telephone" label="Số điện thoại" label-placement="floating" fill="outline"
+      placeholder="Hãy nhập số điện thoại"></ion-input>
 
     <!-- Chỉ một trường nhập cho địa chỉ -->
-    <ion-input [(ngModel)]="addressContent" type="text" fill="outline" label="Address" label-placement="floating"
-      placeholder="Enter your address" required></ion-input>
+    <ion-input [(ngModel)]="addressContent" type="text" fill="outline" label="Địa chỉ" label-placement="floating"
+      placeholder="Hãy nhập địa chỉ" required></ion-input>
 
     <!-- Nút đăng ký -->
     <ion-button (click)="register()" expand="block" fill="outline" shape="round">
-      Sign up
+      đăng kí
     </ion-button>
   </div>
 </ion-content>
