@@ -12,6 +12,7 @@ describe('Register Page Tests', () => {
         cy.get('ion-input[placeholder="Hãy nhập số điện thoại"]').should('be.visible');
         cy.get('ion-input[placeholder="Hãy nhập địa chỉ"]').should('be.visible');
         cy.get('ion-button').contains('đăng kí').should('be.visible');
+        cy.wait(2000)
     });
 
     it('Đăng ký thành công với thông tin hợp lệ', () => {
