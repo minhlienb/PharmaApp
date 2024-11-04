@@ -1,7 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+    <ion-buttons (click)="updateUser()" slot="end">
+      <ion-button expand="block" fill="clear">
+        Save
+      </ion-button>
     </ion-buttons>
     <ion-title>Edit Infomation</ion-title>
   </ion-toolbar>
@@ -18,19 +20,30 @@
   </ion-item>
   <ion-item>
     <ion-label>Password</ion-label>
-    <ion-input [(ngModel)]="userData.password" type="password"><ion-input-password-toggle
-        slot="end"></ion-input-password-toggle></ion-input>
+    <ion-input [(ngModel)]="userData.password" type="password">
+      <ion-input-password-toggle slot="end">
+      </ion-input-password-toggle>
+    </ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Telephone</ion-label>
     <ion-input [(ngModel)]="userData.telephone" type="text"></ion-input>
   </ion-item>
+
   <ion-item>
     <ion-label>Address</ion-label>
-    <ion-input [(ngModel)]="userData.address" type="text"></ion-input>
   </ion-item>
-  <ion-button expand="full" [disabled]="true">
-    <ion-icon fill="full" slot="start" name="save-outline"></ion-icon>
-    Save
+  <!-- <ion-input [(ngModel)]="userData.address" type="text"></ion-input> -->
+  <ion-card *ngFor="let addressKey of getAddressList()">
+    <ion-card-header>
+      <ion-card-title>{{userData.address[addressKey].title}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{userData.address[addressKey].content}}
+    </ion-card-content>
+  </ion-card>
+  <ion-button (click)="addAddress()" expand="full" fill="clear">
+    <ion-icon fill="full" slot="start" name="add"></ion-icon>
+    Add Another Address
   </ion-button>
 </ion-content>
