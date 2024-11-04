@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { ToastController } from '@ionic/angular';
 import { v4 as uuidv4 } from 'uuid';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.page.html',
@@ -13,7 +14,8 @@ export class NotificationsPage implements OnInit {
   
   constructor(
     private db:DataService,
-    private toastController:ToastController
+    private toastController:ToastController,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -45,5 +47,9 @@ export class NotificationsPage implements OnInit {
         console.log("không thể xóa thông báo ",error);
       }
     )
+  }
+  navigationHome()
+  {
+    this.router.navigate(['/tabs/home']);
   }
 } 
